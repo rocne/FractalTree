@@ -8,16 +8,23 @@ var treeStartX;
 var treeStartY;
 
 function setup() {
+	createElement("SPAN", "Length decay:");
 	var lenDecaySlider = createSlider(0, 1, LEN_DECAY, 0.005).elt;
 	lenDecaySlider.readout = createElement("SPAN", LEN_DECAY).elt;
 	lenDecaySlider.onchange = lenDecaySliderChange_cb;
 	createElement("BR");
 
-	var deltaAngleSlider = createSlider(0, PI / 3, DELTA_ANGLE, 0.005).elt;
-	deltaAngleSlider.readout = createElement("SPAN", DELTA_ANGLE / PI + " pi").elt;
+	createP("Length decay specifies the ratio of a new branch to its parent branch. If there is a branch with length 100 and length decay is 0.66, then the next branch will have a length of 0.66 * 100 = 66");
+	createElement("BR");	
+
+	createElement("SPAN", "Branch angle:");
+	var deltaAngleSlider = createSlider(0, PI / 2, DELTA_ANGLE, 0.005).elt;
+	deltaAngleSlider.readout = createElement("SPAN", degrees(DELTA_ANGLE) + " degrees").elt;
 	deltaAngleSlider.onchange = deltaAngleSliderChange_cb;
 	createElement("BR");
-
+	createP("Branch angle specifies how much the angle of each new banch differs from its parent branch.");
+	createElement("BR");
+	
 	var resetButton = createButton("reset").elt;
 	resetButton.onclick = resetButtonClick_cb;
 	createElement("BR");
@@ -26,7 +33,7 @@ function setup() {
 
 	createCanvas(WIDTH, HEIGHT);
 	
-	treeRoot = new Branch(0, 50, 0, 0);
+	treeRoot = new Branch(0, 100, 0, 0);
 	treeStartX = WIDTH / 2;
 	treeStartY = HEIGHT;
 
@@ -43,7 +50,7 @@ function lenDecaySliderChange_cb() {
 
 function deltaAngleSliderChange_cb() { 
 	DELTA_ANGLE = this.value;
-	this.readout.innerHTML = this.value / PI + " pi";
+	this.readout.innerHTML = Math.floor(degrees(this.value)) + " degrees";
 }
 
 function mousePressed() {
