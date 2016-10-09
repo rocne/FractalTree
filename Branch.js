@@ -1,5 +1,5 @@
 
-var DELTA_ANGLE = 0.3;
+var DELTA_ANGLE = 0.5235983333; // pi / 6
 var LEN_DECAY = 0.66667;
 
 function Branch(angle, len, tStart, tEnd) {
@@ -24,8 +24,10 @@ function Branch(angle, len, tStart, tEnd) {
 	
 	this.grow = function() {
 		if (this.branches.length == 0) {
-			this.branches.push(new Branch(this.angle + DELTA_ANGLE, this.len * LEN_DECAY, this.tStart, this.tEnd));
-			this.branches.push(new Branch(this.angle - DELTA_ANGLE, this.len * LEN_DECAY, this.tStart, this.tEnd));
+			var nextAngle = this.angle == 0 ? DELTA_ANGLE : this.angle;
+			console.log(nextAngle);
+			this.branches.push(new Branch(nextAngle, this.len * LEN_DECAY, this.tStart, this.tEnd));
+			this.branches.push(new Branch(-nextAngle, this.len * LEN_DECAY, this.tStart, this.tEnd));
 		} else {
 			for (var i = 0; i < this.branches.length; i++) {
 				this.branches[i].grow();
