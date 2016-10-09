@@ -18,6 +18,11 @@ function setup() {
 	deltaAngleSlider.onchange = deltaAngleSliderChange_cb;
 	createElement("BR");
 
+	var resetButton = createButton("reset").elt;
+	resetButton.onclick = resetButtonClick_cb;
+	createElement("BR");
+
+
 
 	createCanvas(WIDTH, HEIGHT);
 	
@@ -25,6 +30,10 @@ function setup() {
 	treeStartX = WIDTH / 2;
 	treeStartY = HEIGHT;
 
+}
+
+function resetButtonClick_cb() {
+	treeRoot = new Branch(0, 50, 0);
 }
 
 function lenDecaySliderChange_cb() { 
