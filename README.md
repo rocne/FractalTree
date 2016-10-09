@@ -5,7 +5,7 @@ render a lil' fractal tree
 
 - Rocne K. Scribner <rocne.ks@gmail.com>
 
-## Licends & Copyright
+## License & Copyright
 
 © 2016 Rocne K. Scribner
 
