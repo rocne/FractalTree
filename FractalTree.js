@@ -19,7 +19,7 @@ function setup() {
 
 	createElement("SPAN", "Branch angle:");
 	var deltaAngleSlider = createSlider(0, PI / 2, DELTA_ANGLE, 0.005).elt;
-	deltaAngleSlider.readout = createElement("SPAN", degrees(DELTA_ANGLE) + " degrees").elt;
+	deltaAngleSlider.readout = createElement("SPAN", floor(degrees(DELTA_ANGLE)) + " degrees").elt;
 	deltaAngleSlider.onchange = deltaAngleSliderChange_cb;
 	createElement("BR");
 	createP("Branch angle specifies how much the angle of each new banch differs from its parent branch.");
@@ -27,6 +27,8 @@ function setup() {
 	
 	var resetButton = createButton("reset").elt;
 	resetButton.onclick = resetButtonClick_cb;
+	var growButton = createButton("grow").elt;
+	growButton.onclick = growButtonClick_cb;
 	createElement("BR");
 
 
@@ -37,6 +39,10 @@ function setup() {
 	treeStartX = WIDTH / 2;
 	treeStartY = HEIGHT;
 
+}
+
+function growButtonClick_cb() {
+	treeRoot.grow();
 }
 
 function resetButtonClick_cb() {
@@ -62,6 +68,10 @@ function mousePressed() {
 function draw() {
 	push();
 	background(50);	
+
+	fill(255);	
+	text("Click  anywhere to grow the tree!", 10, HEIGHT - 10);
+	
 	translate(treeStartX, treeStartY);
 
 	treeRoot.show();
