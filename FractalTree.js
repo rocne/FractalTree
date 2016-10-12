@@ -1,11 +1,15 @@
 
-var WIDTH = 400;
-var HEIGHT = 300;
+var WIDTH = 400 * 2;
+var HEIGHT = 300 * 2;
+
+var GROW_TIME = 100;
 
 var treeRoot;
 
 var treeStartX;
 var treeStartY;
+
+var startLenHeightFrac = 1.0 / 3.0;
 
 function setup() {
 	createElement("SPAN", "Length decay:");
@@ -27,7 +31,7 @@ function setup() {
 	
 	var resetButton = createButton("reset").elt;
 	resetButton.onclick = resetButtonClick_cb;
-	var growButton = createButton("grow").elt;
+	var growButton = createButton("branch").elt;
 	growButton.onclick = growButtonClick_cb;
 	createElement("BR");
 
@@ -35,7 +39,7 @@ function setup() {
 
 	createCanvas(WIDTH, HEIGHT);
 	
-	treeRoot = new Branch(0, 100, 0, 0);
+	resetButtonClick_cb();
 	treeStartX = WIDTH / 2;
 	treeStartY = HEIGHT;
 
@@ -46,7 +50,7 @@ function growButtonClick_cb() {
 }
 
 function resetButtonClick_cb() {
-	treeRoot = new Branch(0, 50, 0);
+	treeRoot = new Branch(0, HEIGHT * startLenHeightFrac, frameCount, frameCount + GROW_TIME);
 }
 
 function lenDecaySliderChange_cb() { 
@@ -70,7 +74,7 @@ function draw() {
 	background(50);	
 
 	fill(255);	
-	text("Click  anywhere to grow the tree!", 10, HEIGHT - 10);
+	text("Click  anywhere to branch the tree!", 5, HEIGHT - 5);
 	
 	translate(treeStartX, treeStartY);
 
